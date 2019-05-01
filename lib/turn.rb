@@ -1,8 +1,19 @@
 class Turn
 
-  attr_accessor :string, :card
-  def initialize(string, card)
-      @string = string
+  attr_reader :guess, :card
+  def initialize(guess, card)
+      @guess = guess
       @card = card
   end
-end
+
+  def correct?
+      guess == card.answer
+  end
+
+  def feedback
+     if correct? == true
+       return "Correct!"
+     else "Try again."
+     end
+   end
+ end
