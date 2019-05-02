@@ -13,7 +13,7 @@ class Turn
   def feedback
      if correct?
           "Correct!"
-     else "Try again."
+     else "Incorrect!"
      end
    end
  end
