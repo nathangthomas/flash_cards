@@ -25,28 +25,20 @@ class DeckTest < Minitest::Test
     assert_equal [@card_1, @card_2, @card_3], @deck.cards
   end
 
+  def test_does_deck_have_three_cards
+    assert_equal 3, @deck.count
+  end
+
+  def test_cards_in_category_stem
+
+    assert_equal [@card_2, @card_3], @deck.cards_in_category(:STEM)
+  end
+
+  def test_cards_in_category_geography
+    assert_equal [@card_1], @deck.cards_in_category(:Geography)
+  end
+
+  def test_cards_in_category_pop_culture
+    assert_equal [], @deck.cards_in_category("Pop Culture")
+  end
 end
-
-
-
-
-#
-# pry(main)> cards = [card_1, card_2, card_3]
-#
-# pry(main)> deck = Deck.new(cards)
-# #=> #<Deck:0x00007fa160a38ed8...>
-#
-# pry(main)> deck.cards
-# #=> [#<Card:0x00007fa16104e160...>, #<Card:0x00007fa160a62e90...>, #<Card:0x00007fa161a136f0...>]
-#
-# pry(main)> deck.count
-# #=> 3
-#
-# pry(main)> deck.cards_in_category(:STEM)
-# #=> [#<Card:0x00007fa160a62e90...>, #<Card:0x00007fa161a136f0...>]
-#
-# pry(main)> deck.cards_in_category(:Geography)
-# #=> [#<Card:0x00007fa16104e160...>]
-#
-# pry(main)> deck.cards_in_category("Pop Culture")
-# #=> []
