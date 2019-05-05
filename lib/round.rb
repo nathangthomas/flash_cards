@@ -1,9 +1,10 @@
 class Round
-  attr_reader :deck, :turns
+  attr_reader :deck, :turns, :number_correct
 
   def initialize(deck)
     @deck = deck
     @turns = []
+    @number_correct = 0
   end
 
 #states and behaviors
@@ -12,33 +13,16 @@ class Round
   end
 
   def take_turn(guess)
-    turn = Turn.new(guess, current_card)
-    @turns << turn
-      # if new_turn.correct?
-      #   number_correct += 1
-      #   turn
-      # end
-      turn
+    new_turn = Turn.new(guess, current_card)
+    @turns << new_turn
+      if new_turn.correct?
+        @number_correct += 1
+    new_turn
+       end
     end
-
-   def number_correct
-    correct_num = 0
- end
 end
-  #
+  #I need to compare the guess with the answer in a turn and add 1 to correct_num
 
-
-  #  # @deck.each do |card|
-  #  #  if current_card == guess
-  #  #      @turn << current_card
-
-
-
-# access to current_card
-# access to guess
-# compare that current card_answer and guess are equal
-# generate turn object
-# go to next card
 
 
 #querry metod
