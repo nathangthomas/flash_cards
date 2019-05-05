@@ -17,11 +17,13 @@ class Round
     @turns << new_turn
       if new_turn.correct?
         @number_correct += 1
-    new_turn
-       end
+      end
+      deck.cards.shift()
+      new_turn
     end
-end
-  #I need to compare the guess with the answer in a turn and add 1 to correct_num
+  end
+
+
 
 
 
