@@ -69,11 +69,13 @@ def test_does_round_current_card_iterate_to_next_card
 def test_round_turns_count_is_2
   new_turn_2 = @round.take_turn("Juneau")
   new_turn_1 = @round.take_turn("Venus")
-
-binding.pry
   assert_equal 2, @round.turns.count
+end
+def test_round_turns_last_feedback_returns_Incorrect
+  new_turn_2 = @round.take_turn("Juneau")
+  new_turn_1 = @round.take_turn("Venus")
 
-
+assert_equal "Incorrect.", @round.turns.last.feedback
 end
 end
 
