@@ -58,26 +58,51 @@ class RoundTest < MiniTest::Test
 def test_does_number_correct_count
     new_turn = @round.take_turn("Juneau")
 
-    assert_equal 1, @round.number_correct
+    assert 1, @round.number_correct
   end
 
 def test_does_round_current_card_iterate_to_next_card
-    new_turn = @round.take_turn("Juneau")
+    new_turn_1= @round.take_turn("Juneau")
     assert_equal @card_2, @round.current_card
   end
 
 def test_round_turns_count_is_2
-  new_turn_2 = @round.take_turn("Juneau")
-  new_turn_1 = @round.take_turn("Venus")
+  new_turn_1 = @round.take_turn("Juneau")
+  new_turn_2 = @round.take_turn("Venus")
   assert_equal 2, @round.turns.count
 end
 def test_round_turns_last_feedback_returns_Incorrect
-  new_turn_2 = @round.take_turn("Juneau")
-  new_turn_1 = @round.take_turn("Venus")
+  new_turn_1 = @round.take_turn("Juneau")
+  new_turn_2 = @round.take_turn("Venus")
+
+
 
 assert_equal "Incorrect.", @round.turns.last.feedback
 end
+
+def test_does_number_correct_still_equal_one
+  new_turn_1 = @round.take_turn("Juneau")
+  new_turn_2 = @round.take_turn("Venus")
+
+
+    assert 1, @round.number_correct
+end
+def test_is_round_number_correct_by_category
+
+  new_turn_1 = @round.take_turn("Juneau")
+  new_turn_2 = @round.take_turn("Venus")
+
+  assert_equal 1, @round.number_correct_by_category(:Geography)
+  #assert_equal 0, @round.number_correct_by_category(:STEM)
 end
 
-#pry(main)> round.turns.last.feedback
-#=> "Incorrect."
+def test_percent_correct
+  skip
+  assert_equal 50.0, round.percent.correct
+end
+
+def test_percent_correct_by_category
+  skip
+  assert_equal 100.0, round.percent_correct_by_category(:Geography)
+end
+end 
