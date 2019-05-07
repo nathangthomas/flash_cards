@@ -41,6 +41,8 @@ class RoundTest < MiniTest::Test
     new_turn = @round.take_turn("Juneau")
 
     assert_instance_of Turn, new_turn
+
+    assert_equal [new_turn], @round.turns
   end
 
   def test_does_it_return_true
@@ -55,54 +57,68 @@ class RoundTest < MiniTest::Test
     assert_equal new_turn, @round.turns.first
   end
 
-def test_does_number_correct_count
+  def test_does_number_correct_count
     new_turn = @round.take_turn("Juneau")
+    assert 1, @round.number_correct
 
+    new_turn = @round.take_turn("Denver")
     assert 1, @round.number_correct
   end
 
-def test_does_round_current_card_iterate_to_next_card
+  def test_does_round_current_card_iterate_to_next_card
     new_turn_1= @round.take_turn("Juneau")
     assert_equal @card_2, @round.current_card
   end
 
-def test_round_turns_count_is_2
-  new_turn_1 = @round.take_turn("Juneau")
-  new_turn_2 = @round.take_turn("Venus")
-  assert_equal 2, @round.turns.count
-end
-def test_round_turns_last_feedback_returns_Incorrect
-  new_turn_1 = @round.take_turn("Juneau")
-  new_turn_2 = @round.take_turn("Venus")
+  def test_round_turns_count_is_2
+    new_turn_1 = @round.take_turn("Juneau")
+    new_turn_2 = @round.take_turn("Venus")
+    assert_equal 2, @round.turns.count
+  end
 
+  def test_round_turns_last_feedback_returns_Incorrect
+    new_turn_1 = @round.take_turn("Juneau")
+    new_turn_2 = @round.take_turn("Venus")
 
+    assert_equal "Incorrect.", @round.turns.last.feedback
+  end
 
-assert_equal "Incorrect.", @round.turns.last.feedback
-end
-
-def test_does_number_correct_still_equal_one
-  new_turn_1 = @round.take_turn("Juneau")
-  new_turn_2 = @round.take_turn("Venus")
-
+  def test_does_number_correct_still_equal_one
+    new_turn_1 = @round.take_turn("Juneau")
+    new_turn_2 = @round.take_turn("Venus")
 
     assert 1, @round.number_correct
-end
-def test_is_round_number_correct_by_category
+  end
 
-  new_turn_1 = @round.take_turn("Juneau")
-  new_turn_2 = @round.take_turn("Venus")
+  def test_is_round_number_correct_by_category
 
-  assert_equal 1, @round.number_correct_by_category(:Geography)
-  #assert_equal 0, @round.number_correct_by_category(:STEM)
+    new_turn_1 = @round.take_turn("Juneau")
+    new_turn_2 = @round.take_turn("Venus")
+
+    assert_equal 1, @round.number_correct_by_category(:Geography)
+    assert_equal 0, @round.number_correct_by_category(:STEM)
+  end
+
+  def test_percent_correct
+
+    new_turn_1 = @round.take_turn("Juneau")
+    new_turn_2 = @round.take_turn("Venus")
+
+    assert_equal 50.0, @round.percent_correct
+  end
+  #
+  # def test_percent_correct_by_category
+  #   skip
+  #   assert_equal 100.0, round.percent_correct_by_category(:Geography)
+  # end
 end
 
-def test_percent_correct
-  skip
-  assert_equal 50.0, round.percent.correct
-end
 
-def test_percent_correct_by_category
-  skip
-  assert_equal 100.0, round.percent_correct_by_category(:Geography)
-end
-end 
+# pry(main)> round.percent_correct
+# #=> 50.0
+#
+# pry(main)> round.percent_correct_by_category(:Geography)
+# #=> 100.0
+#
+# pry(main)> round.current_card
+# #=> #<Card:0x00007fa161a136f0 @answer="North north west", @question="Describe in words the exact direction that is 697.5° clockwise from due north?", @category=:STEM>
